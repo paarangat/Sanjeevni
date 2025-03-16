@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanjeeveni - AI Powered Therapy Companion</title>
+    <style>
+        :root {
+            --primary: #e91e63;
+            --primary-light: #fce4ec;
+            --secondary: #6a1b9a;
+            --light-pink: #ffeef3;
+            --dark-text: #333333;
+            --light-text: #666666;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-text);
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+            margin-right: 15px;
+        }
+
+        .search-container input {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            width: 180px;
+            font-size: 14px;
+        }
+
+        .search-container button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border: 2px solid var(--primary);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+        }
+
+        .btn-primary:hover {
+            background-color: #d81557;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: var(--light-pink);
+            padding: 130px 0 60px;
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-content {
+            width: 50%;
+            padding-right: 30px;
+        }
+
+        .hero-image {
+            width: 50%;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--dark-text);
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: var(--light-text);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--dark-text);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+        }
+
+        .feature-card p {
+            color: var(--light-text);
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: var(--light-pink);
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+
+        .step {
+            text-align: center;
+            width: 30%;
+        }
+
+        .step-number {
+            background-color: var(--primary);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .step p {
+            color: var(--light-text);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--light-text);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .author-name {
+            font-weight: bold;
+            color: var(--dark-text);
+        }
+
+        .author-title {
+            font-size: 14px;
+            color: var(--light-text);
+        }
+
+        /* Signup Form */
+        .signup-section {
+            background-color: var(--white);
+            padding: 80px 0;
+        }
+
+        .signup-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--light-pink);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-content {
+            width: 50%;
+            padding: 50px;
+        }
+
+        .signup-form {
+            width: 50%;
+            padding: 50px;
+            background-color: var(--white);
+        }
+
+        .signup-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .signup-content p {
+            margin-bottom: 20px;
+            color: var(--light-text);
+        }
+
+        .form-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary);
+            color: var(--white);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-submit:hover {
+            background-color: #d81557;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-text);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary);
+        }
+
+        .footer-col p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-container {
+                flex-direction: column;
+            }
+
+            .hero-content, .hero-image {
+                width: 100%;
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+
+            .signup-container {
+                flex-direction: column;
+            }
+
+            .signup-content, .signup-form {
+                width: 100%;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .features-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .step {
+                width: 100%;
+                margin-bottom: 40px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Sanjeeveni</a>
+                <ul class="nav-links">
+                    <li><a href="#">How it works</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <div class="search-container">
+                        <input type="text" placeholder="Find a therapist">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary">Login</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1>Welcome to <span>Sanjeeveni</span></h1>
+                <p>A safe space to heal, grow, and be heard anytime. Our AI-powered therapy companion is here to support your mental wellbeing journey.</p>
+                <button class="btn btn-primary">Get Started</button>
+                <button class="btn btn-outline" style="margin-left: 10px;">Learn More</button>
+            </div>
+            <div class="hero-image">
+                <img src="https://img.freepik.com/premium-photo/silhouette-happy-woman-with-raised-hands-beach-sunset-generative-ai_170984-18423.jpg" alt="Therapy session illustration">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Sanjeeveni</h2>
+                <p>Our AI therapy companion offers unique benefits to support your mental health journey</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Complete Privacy</h3>
+                    <p>Your conversations are 100% private and secure. We prioritize your confidentiality above all else.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>24/7 Availability</h3>
+                    <p>Get support whenever you need it, day or night. Sanjeeveni is always there to listen.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Affordable Support</h3>
+                    <p>Access quality mental health support at a fraction of the cost of traditional therapy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>AI-Powered Insights</h3>
+                    <p>Our advanced AI understands your patterns and provides personalized guidance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Growth Tracking</h3>
+                    <p>Monitor your progress and celebrate milestones on your mental health journey.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Human Backup</h3>
+                    <p>Connect with real therapists when needed, combining AI efficiency with human expertise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How Sanjeeveni Works</h2>
+                <p>Getting started with our AI therapy companion is simple and straightforward</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Sign Up</h3>
+                    <p>Create your account in minutes and tell us a bit about yourself so we can personalize your experience.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Connect & Share</h3>
+                    <p>Start chatting with Sanjeeveni and share your thoughts, concerns, or feelings in a safe space.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Grow & Heal</h3>
+                    <p>Receive personalized insights, coping strategies, and support as you progress on your journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Users Say</h2>
+                <p>Hear from people whose lives have been positively impacted by Sanjeeveni</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p class="testimonial-text">"Sanjeeveni has been a life-changing companion during my anxiety struggles. Having someone to talk to at 3 AM when I couldn't sleep made all the difference."</p>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/50/50" alt="User avatar">
+                        <div class="author-info">
+                            <span class="author-name">Priya M.</span>
+                            <span class="author-title">User for 8 months</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"I was skeptical about AI therapy, but Sanjeeveni's responses are thoughtful and helpful. It's like having a supportive friend who remembers everything we've talked about."</p>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/50/50" alt="User avatar">
+                        <div class="author-info">
+                            <span class="author-name">Rahul S.</span>
+                            <span class="author-title">User for 5 months</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section class="signup-section">
+        <div class="container">
+            <div class="signup-container">
+                <div class="signup-content">
+                    <h2>Start Your Healing Journey Today</h2>
+                    <p>Join thousands of users who have found support, guidance, and growth with Sanjeeveni's AI therapy companion.</p>
+                    <p>Our platform combines cutting-edge AI technology with evidence-based therapeutic approaches to provide you with personalized support whenever you need it.</p>
+                </div>
+                <div class="signup-form">
+                    <h3 class="form-title">Get Started!</h3>
+                    <form id="signupForm">
+                        <div class="form-row" style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" required>
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="tel" id="phoneNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <button type="submit" class="form-submit"><a href="index.html">Sign Up</a></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Sanjeeveni</h3>
+                    <p>Empowering mental wellbeing through AI-assisted therapy and support.</p>
+                    <div class="social-links">
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
+                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+                            </svg>
+                        </a>
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
+                                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                            </svg>
+                        </a>
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 16 16">
+                                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Mental Health Tips</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Research</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Sanjeeveni. All rights reserved.</p>
+            </div>
+        </div>
